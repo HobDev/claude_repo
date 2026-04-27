@@ -15,6 +15,7 @@ Example output:
   {
     "task": "Description of task",
     "format": "json" or "python" or "regex"
+    "solution_criteria": "Key criteria for evaluating the solution"
   },
   ...additional
 ]
