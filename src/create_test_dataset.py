@@ -37,12 +37,7 @@ Please generate 3 objects.
 
 
 dataset=generate_dataset()
-print(dataset)
 
-
-# save the generated dataset to a file in the solution folder
-with open('dataset.json', 'w') as f:
-    json.dump(dataset, f, indent=2)
 
 
 
