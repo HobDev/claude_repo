@@ -3,7 +3,8 @@ import json
 import concurrent.futures
 from textwrap import dedent
 from statistics import mean
-from request import Request, add_user_messsage, add_assistant_messsage
+from request import Request, add_user_message, add_assistant_message
+from report_builder import generate_prompt_evaluation_report
 
 
 

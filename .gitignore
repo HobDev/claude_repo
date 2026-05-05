@@ -10,3 +10,5 @@ wheels/
 .venv
 .env
 src/dataset.json
+src/output.html
+src/output.json
