@@ -260,14 +260,18 @@ def generate_dataset(
 
 if __name__=="__main__":
     generate_dataset(
+     # Describe the purpose or goal of the prompt you're trying to test
         task_description="Write a compact, concise 1 day meal plan for a single athlete",
+     # Describe the different inputs that your prompt requires
         prompt_inputs_spec={
         "height": "Athlete's height in cm",
         "weight": "Athlete's weight in kg",
         "goal": "Goal of the athlete",
         "restrictions":"Dietary restrictions of the athlete"
         },
+     # Where to write the generated dataset
         output_file="dataset.json",
+     # Number of test cases to generate (recommend keeping this low if you're getting rate limit errors)
         num_cases=3,
         max_concurrent_tasks=1
     )
