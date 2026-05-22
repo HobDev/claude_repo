@@ -40,7 +40,7 @@ class Request:
 
        # return full_response
 
-        message-=self.Client.messages.create(**params)
+        message=self.Client.messages.create(**params)
         return message
     
 def text_from_message(message):
