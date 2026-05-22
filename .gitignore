@@ -12,3 +12,4 @@ wheels/
 src/dataset.json
 src/output.html
 src/output.json
+.DS_Store
