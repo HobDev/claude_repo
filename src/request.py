@@ -13,7 +13,7 @@ class Request:
         self.Client=Anthropic()
 
 
-    def chat(self,messages, system=None, temperature=1.0, stop_sequences=[], tools=None):
+    def chat(self,messages, system=None, temperature=1.0, stop_sequences=None, tools=None):
         params={
             "model":self.Model,
             "max_tokens":1000,
@@ -31,19 +31,22 @@ class Request:
             params["tools"]=tools
 
 
-       # return text back gradually in stream
+       #return text back gradually in stream
 
-        # with self.Client.messages.stream(**params) as stream:
-        #     for text in stream.text_stream:
-        #         print(text, end="", flush=True)
-        #     full_response = stream.get_final_text()
+        with self.Client.messages.stream(**params) as stream:
+            for text in stream.text_stream:
+                print(text, end="", flush=True)
+            # Return the full structured message so callers can inspect
+            # tool calls, stop reason, and text blocks.
+            final_message = stream.get_final_message()
 
-       # return full_response
+        return final_message
 
-        message=self.Client.messages.create(**params)
-        return message
     
 def text_from_message(message):
+    if not message or not hasattr(message, "content"):
+        return ""
+
     return "\n".join(
         [block.text for block in message.content if block.type == "text"]
     )

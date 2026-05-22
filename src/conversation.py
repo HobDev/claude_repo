@@ -17,7 +17,6 @@ def start_conversation():
     while True:
         # Get user input
         user_input= input("> ")
-        print(">", user_input)
 
         # Skip empty input
         if not user_input.strip():
@@ -29,13 +28,20 @@ def start_conversation():
     # Add user input to the list of questions
         add_user_message(messages, user_input)
 
-        # Pass the list of messages into 'chat' to get a response
-        answer= request.chat(messages, system=system, temperature=temperature, tools= tools)
+        # Keep going until the model has no more tool calls for this user turn.
+        while True:
+            # Pass the list of messages into 'chat' to get a response.
+            answer= request.chat(messages, system=system, temperature=temperature, tools= tools)
 
-        # Add assistant message to the conversation history
-        add_assistant_message(messages, answer)
+            if answer is None:
+                print("\nError: model did not return a response.")
+                break
 
-        if answer.stop_reason == "tool_use":
+            # Add assistant message to the conversation history.
+            add_assistant_message(messages, answer)
+
+            if answer.stop_reason != "tool_use":
+                break
 
             tool_results = run_tools(answer)
             add_user_message(messages, tool_results)
@@ -44,6 +50,7 @@ def start_conversation():
 def run_tool(tool_name, tool_input):
     if tool_name == "get_current_datetime":
         return tools_and_schemas.get_current_datetime(**tool_input)
+    raise ValueError(f"Unknown tool: {tool_name}")
 
 
 
@@ -70,7 +77,7 @@ def run_tools(message):
                 "is_error": True
             }
 
-            tool_result_blocks.append(tool_result_block)
+        tool_result_blocks.append(tool_result_block)
     return tool_result_blocks
     
 if __name__=="__main__":
