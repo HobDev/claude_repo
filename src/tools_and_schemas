@@ -1,6 +1,37 @@
-# Tools and Schemas
+
 
 from datetime import datetime, timedelta
+from anthropic.types import ToolParam
+
+
+def get_current_datetime(date_format = "%Y-%m-%d %H:%M:%S"):
+    if not date_format:
+        raise ValueError("date_format cannot be empty")
+    return datetime.now().strftime(date_format)
+
+
+get_current_datetime_schema=ToolParam({
+    "name":"get_current_datetime",
+    "description":"Returns the current date and time formatted according to the specified format", 
+    "input_schema":{
+        "type": "object",
+        "properties":{
+            "date_format":{
+                "type": "string",
+                "description":"A string specifying the format of the returned datetime. Uses Python's strftime format codes.",
+                "default": "%Y -%m-%d %H:%M:%S"
+            }
+        },
+        "required":[]
+    }
+})
+
+
+# Default format: "2024-01-15 14:30:25"
+get_current_datetime()
+
+# Just hour and minute: "14:30"
+get_current_datetime("%H%M")
 
 
 def add_duration_to_datetime(
@@ -55,7 +86,7 @@ def set_reminder(content, timestamp):
     print(f"----\nSetting the following reminder for {timestamp}:\n{content}\n----")
 
 
-add_duration_to_datetime_schema = {
+add_duration_to_datetime_schema = ToolParam({
     "name": "add_duration_to_datetime",
     "description": "Adds a specified duration to a datetime string and returns the resulting datetime in a detailed format. This tool converts an input datetime string to a Python datetime object, adds the specified duration in the requested unit, and returns a formatted string of the resulting datetime. It handles various time units including seconds, minutes, hours, days, weeks, months, and years, with special handling for month and year calculations to account for varying month lengths and leap years. The output is always returned in a detailed format that includes the day of the week, month name, day, year, and time with AM/PM indicator (e.g., 'Thursday, April 03, 2025 10:30:00 AM').",
     "input_schema": {
@@ -80,9 +111,9 @@ add_duration_to_datetime_schema = {
         },
         "required": ["datetime_str"],
     },
-}
+})
 
-set_reminder_schema = {
+set_reminder_schema = ToolParam({
     "name": "set_reminder",
     "description": "Creates a timed reminder that will notify the user at the specified time with the provided content. This tool schedules a notification to be delivered to the user at the exact timestamp provided. It should be used when a user wants to be reminded about something specific at a future point in time. The reminder system will store the content and timestamp, then trigger a notification through the user's preferred notification channels (mobile alerts, email, etc.) when the specified time arrives. Reminders are persisted even if the application is closed or the device is restarted. Users can rely on this function for important time-sensitive notifications such as meetings, tasks, medication schedules, or any other time-bound activities.",
     "input_schema": {
@@ -99,9 +130,9 @@ set_reminder_schema = {
         },
         "required": ["content", "timestamp"],
     },
-}
+})
 
-batch_tool_schema = {
+batch_tool_schema = ToolParam({
     "name": "batch_tool",
     "description": "Invoke multiple other tool calls simultaneously",
     "input_schema": {
@@ -128,6 +159,6 @@ batch_tool_schema = {
         },
         "required": ["invocations"],
     },
-}
+})
 
 pass

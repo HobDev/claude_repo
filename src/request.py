@@ -1,6 +1,7 @@
 # Load environment variables and create client
 from dotenv import load_dotenv
 from anthropic import Anthropic
+from anthropic.types import Message
 
 load_dotenv()
 
@@ -12,12 +13,12 @@ class Request:
         self.Client=Anthropic()
 
 
-    def chat(self,messages, system=None, temperature=1.0, stop_sequences=[]):
+    def chat(self,messages, system=None, temperature=1.0, stop_sequences=[], tools=None):
         params={
             "model":self.Model,
             "max_tokens":1000,
             "messages":messages,
-            "temperature": temperature
+            "temperature": temperature,
             }
 
         if system:
@@ -26,21 +27,37 @@ class Request:
         if stop_sequences:
             params["stop_sequences"] = stop_sequences
 
-        with self.Client.messages.stream(**params) as stream:
-            for text in stream.text_stream:
-                print(text, end="", flush=True)
-            full_response = stream.get_final_text()
+        if tools:
+            params["tools"]=tools
 
-        return full_response
-    
 
+       # return text back gradually in stream
+
+        # with self.Client.messages.stream(**params) as stream:
+        #     for text in stream.text_stream:
+        #         print(text, end="", flush=True)
+        #     full_response = stream.get_final_text()
+
+       # return full_response
+
+        message-=self.Client.messages.create(**params)
+        return message
     
-def add_user_message(messages, text):
-    user_message={"role": "user", "content": text}
+def text_from_message(message):
+    return "\n".join(
+        [block.text for block in message.content if block.type == "text"]
+    )
+    
+def add_user_message(messages, message):
+    user_message={"role": "user", 
+                  "content": message.content if isinstance(message, Message) else message
+                  }
     messages.append(user_message)
 
 
-def add_assistant_message(messages, text):
-    assistant_message={"role": "assistant", "content": text}
+def add_assistant_message(messages, message):
+    assistant_message={"role": "assistant", 
+                       "content": message.content if isinstance(message, Message) else message
+                       }
     messages.append(assistant_message)
 
