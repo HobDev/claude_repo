@@ -10,7 +10,11 @@ def start_conversation():
     """
     # lower temperature increase determinism (predictable) and higher temperature increase randomness (creative)
     temperature=1.0
-    tools= [tools_and_schemas.get_current_datetime_schema]
+    tools= [
+        tools_and_schemas.get_current_datetime_schema,
+        tools_and_schemas.add_duration_to_datetime_schema,
+        tools_and_schemas.set_reminder_schema
+        ]
     request = Request()
 
     # use a 'while True' loop to run the chatbot forever
@@ -50,6 +54,10 @@ def start_conversation():
 def run_tool(tool_name, tool_input):
     if tool_name == "get_current_datetime":
         return tools_and_schemas.get_current_datetime(**tool_input)
+    elif tool_name== "add_duration_to_datetime":
+        return tools_and_schemas.add_duration_to_datetime(**tool_input)
+    elif tool_name== "set_reminder":
+        return tools_and_schemas.set_reminder(**tool_input)
     raise ValueError(f"Unknown tool: {tool_name}")
 
 
