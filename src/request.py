@@ -30,7 +30,6 @@ class Request:
         if tools:
             params["tools"]=tools
 
-
        #return text back gradually in stream
 
         with self.Client.messages.stream(**params) as stream:
