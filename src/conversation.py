@@ -2,6 +2,9 @@ from api_request import Request, add_user_message, add_assistant_message
 import tool_use.tools_and_schemas as tools_and_schemas
 import json
 import tool_use.built_in_tool_schemas as built_in_tool_schemas
+import tool_use.text_editor_tool as text_editor_tool
+
+text_tool= text_editor_tool.TextEditorTool()
 
 def start_conversation():
     # Start with an empty message list
@@ -61,8 +64,31 @@ def run_tool(tool_name, tool_input):
         return tools_and_schemas.add_duration_to_datetime(**tool_input)
     elif tool_name== "set_reminder":
         return tools_and_schemas.set_reminder(**tool_input)
-    raise ValueError(f"Unknown tool: {tool_name}")
-
+    elif tool_name == "str_replace_editor":
+        command = tool_input["command"]
+        if command == "view":
+            return text_tool.view(
+                tool_input["path"], tool_input.get("view_range")
+            )
+        elif command == "str_replace":
+            return text_tool.str_replace(
+                tool_input["path"], tool_input["old_str"], tool_input["new_str"]
+            )
+        elif command == "create":
+            return text_editor_tool.create(tool_input["path"], tool_input["file_text"])
+        elif command == "insert":
+            return text_tool.insert(
+                tool_input["path"],
+                tool_input["insert_line"],
+                tool_input["new_str"],
+            )
+        elif command == "undo_edit":
+            return text_tool.undo_edit(tool_input["path"])
+        else:
+            raise Exception(f"Unknown text editor command: {command}")
+    else:
+        raise Exception(f"Unknown tool name: {tool_name}")
+    
 
 
 def run_tools(message):

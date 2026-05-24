@@ -8,7 +8,7 @@ load_dotenv()
 class Request:
 
     def __init__(self):
-        self.Model="claude-haiku-4-6"
+        self.Model="claude-haiku-4-5"
         #self.Model="claude-sonnet-4-6"
         #self.Model="claude-opus-4-7"
         self.Client=Anthropic()
