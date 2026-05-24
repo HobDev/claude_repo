@@ -6,7 +6,7 @@ load_dotenv()
 client = voyageai.Client()
 
 
-def generate_embedding(chunks, model="voyage-3-large", input_type="query"):
+def generate_embedding(chunks, model="voyage-4-large", input_type="query"):
     input= chunks if is_list else [chunks]
     result= client.embed(input, model=model, input_type=input_type)
     embeddings= result.embeddings if is_list else result.embeddings[0]
