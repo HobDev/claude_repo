@@ -2,9 +2,9 @@ from api_request import Request, add_user_message, add_assistant_message
 import tool_use.tools_and_schemas as tools_and_schemas
 import json
 import tool_use.built_in_tool_schemas as built_in_tool_schemas
-import tool_use.text_editor_tool as text_editor_tool
+import tool_use.text_editor_tool_functions as text_editor_tool_functions
 
-text_tool= text_editor_tool.TextEditorTool()
+text_tool= text_editor_tool_functions.TextEditorTool()
 
 def start_conversation():
     # Start with an empty message list
@@ -75,7 +75,7 @@ def run_tool(tool_name, tool_input):
                 tool_input["path"], tool_input["old_str"], tool_input["new_str"]
             )
         elif command == "create":
-            return text_editor_tool.create(tool_input["path"], tool_input["file_text"])
+            return text_editor_tool_functions.create(tool_input["path"], tool_input["file_text"])
         elif command == "insert":
             return text_tool.insert(
                 tool_input["path"],
