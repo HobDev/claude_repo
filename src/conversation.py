@@ -64,7 +64,7 @@ def run_tool(tool_name, tool_input):
         return tools_and_schemas.add_duration_to_datetime(**tool_input)
     elif tool_name== "set_reminder":
         return tools_and_schemas.set_reminder(**tool_input)
-    elif tool_name == "str_replace_editor":
+    elif tool_name == "str_replace_based_edit_tool":
         command = tool_input["command"]
         if command == "view":
             return text_tool.view(
