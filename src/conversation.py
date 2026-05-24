@@ -1,5 +1,5 @@
-from request import Request, add_user_message, add_assistant_message
-import tools_and_schemas
+from api_request import Request, add_user_message, add_assistant_message
+import tool_use.tools_and_schemas as tools_and_schemas
 import json
 
 def start_conversation():

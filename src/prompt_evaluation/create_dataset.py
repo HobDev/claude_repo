@@ -4,7 +4,7 @@ import json
 import concurrent.futures
 import threading
 from textwrap import dedent
-from request import Request, add_user_message, add_assistant_message
+from api_request import Request, add_user_message, add_assistant_message
 
 _thread_local= threading.local()
 

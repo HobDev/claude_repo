@@ -1,6 +1,6 @@
 
-from request import Request, add_user_message, add_assistant_message
-from prompt_evaluator import PromptEvaluator
+from api_request import Request, add_user_message, add_assistant_message
+from evaluation.prompt_evaluator import PromptEvaluator
 
 
 request= Request()
