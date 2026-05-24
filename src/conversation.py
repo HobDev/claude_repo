@@ -26,7 +26,7 @@ def start_conversation():
     # use a 'while True' loop to run the chatbot forever
     while True:
         # Get user input
-        user_input= input(">\n")
+        user_input= input("\n>")
 
         # Skip empty input
         if not user_input.strip():
