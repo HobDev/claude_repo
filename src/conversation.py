@@ -1,6 +1,7 @@
 from api_request import Request, add_user_message, add_assistant_message
 import tool_use.tools_and_schemas as tools_and_schemas
 import json
+import tool_use.built_in_tool_schemas as built_in_tool_schemas
 
 def start_conversation():
     # Start with an empty message list
@@ -13,7 +14,9 @@ def start_conversation():
     tools= [
         tools_and_schemas.get_current_datetime_schema,
         tools_and_schemas.add_duration_to_datetime_schema,
-        tools_and_schemas.set_reminder_schema
+        tools_and_schemas.set_reminder_schema,
+        built_in_tool_schemas.text_edit_schema,
+        built_in_tool_schemas.web_search_schema
         ]
     request = Request()
 

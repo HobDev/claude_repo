@@ -10,6 +10,13 @@ def get_current_datetime(date_format = "%Y-%m-%d %H:%M:%S"):
     return datetime.now().strftime(date_format)
 
 
+# Default format: "2024-01-15 14:30:25"
+get_current_datetime()
+
+# Just hour and minute: "14:30"
+get_current_datetime("%H%M")
+
+
 get_current_datetime_schema=ToolParam({
     "name":"get_current_datetime",
     "description":"Returns the current date and time formatted according to the specified format", 
@@ -25,13 +32,6 @@ get_current_datetime_schema=ToolParam({
         "required":[]
     }
 })
-
-
-# Default format: "2024-01-15 14:30:25"
-get_current_datetime()
-
-# Just hour and minute: "14:30"
-get_current_datetime("%H%M")
 
 
 def add_duration_to_datetime(

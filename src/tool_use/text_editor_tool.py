@@ -222,3 +222,7 @@ class TextEditorTool:
             raise PermissionError("Permission denied. Cannot restore file.")
         except Exception as e:
             raise type(e)(str(e))
+        
+
+
+    
