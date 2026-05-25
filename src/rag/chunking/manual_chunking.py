@@ -1,15 +1,14 @@
-# Chunk by section
 import re
 
-
-def chunk_by_section(document_text):
+# Chunk by section
+def chunk_by_section(document_text: str) -> list[str]:
     pattern = r"\n## "
     return re.split(pattern, document_text)
 
 
-# Chunk by a set number of charactesr
-def chunk_by_char(text, chunk_size=150, chunk_overlap=20):
-    chunks = []
+# Chunk by a set number of characters
+def chunk_by_char(text: str, chunk_size: int = 150, chunk_overlap: int = 20) -> list[str]:
+    chunks: list[str] = []
     start_idx = 0
 
     while start_idx < len(text):
@@ -26,13 +25,12 @@ def chunk_by_char(text, chunk_size=150, chunk_overlap=20):
 
 
 # Chunk by sentence
-import re
+def chunk_by_sentence(
+    text: str, max_sentences_per_chunk: int = 5, overlap_sentences: int = 1
+) -> list[str]:
+    sentences: list[str] = re.split(r"(?<=[.!?])\s+", text)
 
-
-def chunk_by_sentence(text, max_sentences_per_chunk=5, overlap_sentences=1):
-    sentences = re.split(r"(?<=[.!?])\s+", text)
-
-    chunks = []
+    chunks: list[str] = []
     start_idx = 0
 
     while start_idx < len(sentences):

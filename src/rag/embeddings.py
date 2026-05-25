@@ -1,17 +1,23 @@
 from dotenv import load_dotenv
 import voyageai
+from typing import Any, Union
 
 load_dotenv()
 
-client = voyageai.Client()
+client: Any = getattr(voyageai, "Client")()
 
 
-def generate_embedding(chunks, model="voyage-4-large", input_type="query"):
-    is_list=isinstance(chunks, list)
-    input= chunks if is_list else [chunks]
-    result= client.embed(input, model=model, input_type=input_type)
-    embeddings= result.embeddings if is_list else result.embeddings[0]
-    print(embeddings)
+def generate_embedding(
+    chunks: Union[str, list[str]],
+    model: str = "voyage-4-large",
+    input_type: str = "query",
+) -> Union[list[float], list[list[float]]]:
+    if isinstance(chunks, list):
+        result = client.embed(chunks, model=model, input_type=input_type)
+        return [[float(value) for value in vector] for vector in result.embeddings]
+
+    result = client.embed([chunks], model=model, input_type=input_type)
+    return [float(value) for value in result.embeddings[0]]
 
 
 

@@ -82,7 +82,7 @@ class VectorIndex:
 
         return [(doc, dist) for dist, doc in distances[:k]]
 
-    def add_vector(self, vector, document: Dict[str, Any]):
+    def add_vector(self, vector: List[float], document: Dict[str, Any]):
         if not isinstance(vector, list) or not all(
             isinstance(x, (int, float)) for x in vector
         ):
@@ -128,7 +128,7 @@ class VectorIndex:
 
         if mag1 == 0 and mag2 == 0:
             return 0.0
-        elif mag1 == 0 or mag2 == 0:
+        if mag1 == 0 or mag2 == 0:
             return 1.0
 
         dot_prod = self._dot_product(vec1, vec2)
