@@ -21,6 +21,9 @@ def start_conversation():
         built_in_tool_schemas.text_edit_schema,
         built_in_tool_schemas.web_search_schema
         ]
+    
+    thinking= False
+
     request = Request()
 
     # use a 'while True' loop to run the chatbot forever
@@ -41,7 +44,7 @@ def start_conversation():
         # Keep going until the model has no more tool calls for this user turn.
         while True:
             # Pass the list of messages into 'chat' to get a response.
-            answer= request.chat(messages, system=system, temperature=temperature, tools= tools)
+            answer= request.chat(messages, system=system, temperature=temperature, tools= tools, thinking)
 
             if answer is None:
                 print("\nError: model did not return a response.")

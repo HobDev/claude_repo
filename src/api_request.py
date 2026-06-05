@@ -14,12 +14,20 @@ class Request:
         self.Client=Anthropic()
 
 
-    def chat(self,messages, system=None, temperature=1.0, stop_sequences=None, tools=None):
+   # minimum thinking_budget is 1024.
+   # max_tokens much be greater than thinking_budget
+    def chat(self,messages, system=None, temperature=1.0, stop_sequences=None, tools=None, thinking=False, thinking_budget=1024):
         params={
             "model":self.Model,
-            "max_tokens":1000,
+            "max_tokens":4000,
             "messages":messages,
             "temperature": temperature,
+            }
+
+        if thinking:
+            params["thinking"] ={
+                "type": "enabled",
+                "budget_tokens": thinking_budget
             }
 
         if system:
