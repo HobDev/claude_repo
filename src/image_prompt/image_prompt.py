@@ -1,5 +1,5 @@
 import base64
-from claude_repo.api_request import Request, add_user_message, add_assistant_message
+from api_request import Request, add_user_message, add_assistant_message
 
 request= Request()
 
@@ -37,8 +37,15 @@ def run_prompt():
     For each item above (1-5), write one sentence summarizing your findings, with your final response being the numeric Fire Risk Rating (1-4) with a brief justification.
     """
 
+    import os
+    image_path = "image.png"
+    if not os.path.exists(image_path):
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        image_path = os.path.join(base_dir, "images", "prop1.png")
 
-    with open("image.png", "rb") as f:
+    print(f"Evaluating {image_path} with the fire risk assessment prompt...")
+
+    with open(image_path, "rb") as f:
         image_bytes= base64.standard_b64encode(f.read()).decode("utf-8")
 
     messages = []
@@ -55,7 +62,7 @@ def run_prompt():
         # Text Block
         {
             "type": "text",
-            "text": "What do you see in this image?"
+            "text": prompt
         }
     ])
     output= request.chat(messages)
