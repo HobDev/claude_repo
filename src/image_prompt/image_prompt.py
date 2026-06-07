@@ -1,5 +1,6 @@
 import base64
 from api_request import Request, add_user_message, add_assistant_message
+import os
 
 request= Request()
 
@@ -37,11 +38,10 @@ def run_prompt():
     For each item above (1-5), write one sentence summarizing your findings, with your final response being the numeric Fire Risk Rating (1-4) with a brief justification.
     """
 
-    import os
-    image_path = "image.png"
-    if not os.path.exists(image_path):
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        image_path = os.path.join(base_dir, "images", "prop1.png")
+    
+   
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    image_path = os.path.join(base_dir, "images", "prop1.png")
 
     print(f"Evaluating {image_path} with the fire risk assessment prompt...")
 
