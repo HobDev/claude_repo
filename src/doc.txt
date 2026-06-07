@@ -5,3 +5,9 @@ When sending one image: max height/width of 8000px
 When sending multiple images: max height/width of 2000px
 Images can be included as base64 encoding or a URL to the image
 Each image counts as tokens based on its dimensions: tokens = (width px × height px) / 750
+
+
+#Caching
+Content must be at least 1024 tokens long to be cached 
+Cache lives for one hour
+One useful if you're repeatedly sending the same content (but this happens extremely frequently)

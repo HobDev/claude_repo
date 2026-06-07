@@ -12,8 +12,7 @@ def start_conversation():
     system=[
         {
         "type": "text",
-        "text":  "You are a helpful assistant",
-        "cache_control":{"type": "ephemeral"}
+        "text":  "You are a helpful assistant"
         }
     ]
    
@@ -24,13 +23,7 @@ def start_conversation():
         tools_and_schemas.add_duration_to_datetime_schema,
         tools_and_schemas.set_reminder_schema,
         built_in_tool_schemas.text_edit_schema,
-        built_in_tool_schemas.web_search_schema,
-        {
-            "name": "my_tools",
-            "description": "tools for use in my app",
-            "input_schema":{...},
-            "cache_control": {"type": "ephemeral"}
-        }
+        built_in_tool_schemas.web_search_schema
         ]
     
     thinking= False
