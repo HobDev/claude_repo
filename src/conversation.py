@@ -9,9 +9,14 @@ text_tool= text_editor_tool_functions.TextEditorTool()
 def start_conversation():
     # Start with an empty message list
     messages=[]
-    system="""
-    You are a helpful assistant
-    """
+    system=[
+        {
+        "type": "text",
+        "text":  "You are a helpful assistant",
+        "cache_control":{"type": "ephemeral"}
+        }
+    ]
+   
     # lower temperature increase determinism (predictable) and higher temperature increase randomness (creative)
     temperature=1.0
     tools= [
@@ -19,7 +24,13 @@ def start_conversation():
         tools_and_schemas.add_duration_to_datetime_schema,
         tools_and_schemas.set_reminder_schema,
         built_in_tool_schemas.text_edit_schema,
-        built_in_tool_schemas.web_search_schema
+        built_in_tool_schemas.web_search_schema,
+        {
+            "name": "my_tools",
+            "description": "tools for use in my app",
+            "input_schema":{...},
+            "cache_control": {"type": "ephemeral"}
+        }
         ]
     
     thinking= False
