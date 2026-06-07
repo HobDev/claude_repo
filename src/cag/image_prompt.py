@@ -38,14 +38,8 @@ def run_prompt():
     For each item above (1-5), write one sentence summarizing your findings, with your final response being the numeric Fire Risk Rating (1-4) with a brief justification.
     """
 
-    
-   
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    image_path = os.path.join(base_dir, "images", "prop1.png")
 
-    print(f"Evaluating {image_path} with the fire risk assessment prompt...")
-
-    with open(image_path, "rb") as f:
+    with open("images/prop1.png", "rb") as f:
         image_bytes= base64.standard_b64encode(f.read()).decode("utf-8")
 
     messages = []
