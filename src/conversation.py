@@ -48,7 +48,7 @@ def start_conversation():
         # Keep going until the model has no more tool calls for this user turn.
         while True:
             # Pass the list of messages into 'chat' to get a response.
-            answer= request.chat(messages, system=system, temperature=temperature, tools= tools, thinking=thinking)
+            answer= request.chat(messages, system=system, temperature=temperature, tools= None, thinking=thinking)
 
             if answer is None:
                 print("\nError: model did not return a response.")

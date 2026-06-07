@@ -31,13 +31,18 @@ class Request:
             }
 
         if system:
-            params["system"]=[
-            {
-                "type": "text",
-                "text": system,
-                "cache_control": {"type": "ephemeral"}
-            }
-            ]
+            if isinstance(system, str):
+                # if system prompt is a string
+                params["system"] = [
+                    {
+                        "type": "text",
+                        "text": system,
+                        "cache_control": {"type": "ephemeral"},
+                    }
+                ]
+            else:
+                # if system prompt is a system block list
+                params["system"] = system
         if stop_sequences:
             params["stop_sequences"] = stop_sequences
 
