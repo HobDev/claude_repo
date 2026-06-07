@@ -48,7 +48,7 @@ def start_conversation():
         # Keep going until the model has no more tool calls for this user turn.
         while True:
             # Pass the list of messages into 'chat' to get a response.
-            answer= request.chat(messages, system=system, temperature=temperature, tools= tools, thinking)
+            answer= request.chat(messages, system=system, temperature=temperature, tools= tools, thinking=thinking)
 
             if answer is None:
                 print("\nError: model did not return a response.")
@@ -82,7 +82,7 @@ def run_tool(tool_name, tool_input):
                 tool_input["path"], tool_input["old_str"], tool_input["new_str"]
             )
         elif command == "create":
-            return text_editor_tool_functions.create(tool_input["path"], tool_input["file_text"])
+            return text_tool.create(tool_input["path"], tool_input["file_text"])
         elif command == "insert":
             return text_tool.insert(
                 tool_input["path"],
