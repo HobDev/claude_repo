@@ -9,12 +9,9 @@ text_tool= text_editor_tool_functions.TextEditorTool()
 def start_conversation():
     # Start with an empty message list
     messages=[]
-    system=[
-        {
-        "type": "text",
-        "text":  "You are a helpful assistant"
-        }
-    ]
+    system="""
+    You are a helpful assistant
+    """
    
     # lower temperature increase determinism (predictable) and higher temperature increase randomness (creative)
     temperature=1.0
