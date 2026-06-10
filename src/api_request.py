@@ -2,15 +2,14 @@
 from dotenv import load_dotenv
 from anthropic import Anthropic
 from anthropic.types import Message
+import os
 
 load_dotenv()
 
 class Request:
 
     def __init__(self):
-        self.Model="claude-haiku-4-5"
-        #self.Model="claude-sonnet-4-6"
-        #self.Model="claude-opus-4-7"
+        self.Model=os.getenv("CLAUDE_MODEL", "")
         self.Client=Anthropic()
 
 
