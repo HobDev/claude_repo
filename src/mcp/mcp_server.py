@@ -12,18 +12,14 @@ docs = {
     "spec.txt": "These specifications define the technical requirements for the equipment.",
 }
 
-# TODO: Write a tool to read a doc
-# TODO: Write a tool to edit a doc
-# TODO: Write a resource to return all doc id's
 # TODO: Write a resource to return the contents of a particular doc
-# TODO: Write a prompt to rewrite a doc in markdown format
 # TODO: Write a prompt to summarize a doc
 
 
 from pydantic import Field
 from mcp.server.fastmcp.prompts import base
 
-
+# a tool to read a doc
 @mcp.tool(
     name="read_doc_contents",
     description="Read the contents of a document and return it as a string.",
@@ -36,7 +32,7 @@ def read_document(
 
     return docs[doc_id]
 
-
+# a tool to edit a doc
 @mcp.tool(
     name="edit_document",
     description="Edit a document by replacing a string in the documents content with a new string",
@@ -60,14 +56,14 @@ def edit_document(
 def list_docs() -> list[str]:
     return list(docs.keys())
 
-
+# a resource to return all doc id's
 @mcp.resource("docs://documents/{doc_id}", mime_type="text/plain")
 def fetch_doc(doc_id: str) -> str:
     if doc_id not in docs:
         raise ValueError(f"Doc with id {doc_id} not found")
     return docs[doc_id]
 
-
+# a prompt to rewrite a doc in markdown format
 @mcp.prompt(
     name="format",
     description="Rewrites the contents of the document in Markdown format.",
