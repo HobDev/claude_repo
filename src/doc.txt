@@ -1,4 +1,5 @@
-#Images
+# IMAGES
+
 Up to 100 images across all messages in a single request
 Max size of 5MB per image
 When sending one image: max height/width of 8000px
@@ -7,7 +8,31 @@ Images can be included as base64 encoding or a URL to the image
 Each image counts as tokens based on its dimensions: tokens = (width px × height px) / 750
 
 
-#Caching
+# CACHING
+
 Content must be at least 1024 tokens long to be cached 
 Cache lives for one hour
 One useful if you're repeatedly sending the same content (but this happens extremely frequently)
+
+
+
+# RAG
+
+
+
+# CAG
+
+
+
+
+# MCP
+Access the MCP project at https://modelcontextprotocol.io/docs/getting-started/intro
+Use official SDK for MCP Server and Client development
+use MCP Server Inspector on Browser:mcp dev mcp_server.py
+
+
+# PROMPT EVALUATION
+
+
+
+# TOOL USE
