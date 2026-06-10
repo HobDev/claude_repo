@@ -1,4 +1,6 @@
 from mcp.server.fastmcp import FastMCP
+from pydantic import Field
+from mcp.server.fastmcp.prompts import base
 
 mcp = FastMCP("DocumentMCP", log_level="ERROR")
 
@@ -15,9 +17,6 @@ docs = {
 # TODO: Write a resource to return the contents of a particular doc
 # TODO: Write a prompt to summarize a doc
 
-
-from pydantic import Field
-from mcp.server.fastmcp.prompts import base
 
 # a tool to read a doc
 @mcp.tool(
