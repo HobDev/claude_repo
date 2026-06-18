@@ -1,5 +1,9 @@
 # Claude API Learning Repo
 
+The code from the course "Building with Claude API" available at https://anthropic.skilljar.com/claude-with-the-anthropic-api.
+
+Hope this is useful to other learners.
+
 Python 3.14+ project with examples for Claude chat, MCP tool-calling, RAG, and prompt evaluation.
 
 Setup: create venv and install deps with `python -m venv .venv && source .venv/bin/activate && pip install -e .`.
